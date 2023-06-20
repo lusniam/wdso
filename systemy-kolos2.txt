@@ -4,7 +4,11 @@ LABORATORIUM SYSTEMÓW OPERACYJNYCH LABORATORIUM NR 9
 Podstawy tworzenia bibliotek i polecenie make.
 
 Podstawowe polecenia.
-Przepis na róznego rodzaju dzialania (obliczenia, obsluga multimediów itd.) nie musi znajdowac sie zawsze wewnatrz naszego programu. Bardziej zlozone projekty programistyczne skladaja sie zazwyczaj z wielu a nie jednego pliku. Ciekawsze lub czesciej uzywane rozwiazania zgrupowane w postaci wielu róznych funkcji, umozliwiajace rózne dzialania w obrebie danej tematyki realizowane sa zazwyczaj w postaci bibliotek dolaczanych w procesie kompilacji do programu glównego.
+Przepis na róznego rodzaju dzialania (obliczenia, obsluga multimediów itd.) nie musi znajdowac sie zawsze wewnatrz naszego programu.
+Bardziej zlozone projekty programistyczne skladaja sie zazwyczaj z wielu a nie jednego pliku.
+Ciekawsze lub czesciej uzywane rozwiazania zgrupowane w postaci wielu róznych funkcji,
+umozliwiajace rózne dzialania w obrebie danej tematyki realizowane sa zazwyczaj w postaci bibliotek
+dolaczanych w procesie kompilacji do programu glównego.
 
 Tworzenie programu skladajacego sie z wiecej niz jednego pliku.
 Prosty program "Hello world!":
@@ -19,7 +23,8 @@ return 0;
 
 Kompilacje takiego programu w terminalu tekstowym zrealizujemy poleceniem:
 gcc -o hello hello.c
-Opcja -o i nazwa pliku wykonywalnego, który ma powstac po kompilacji hello nie moga byc rozdzielone. Poprawne jest uzycie:
+Opcja -o i nazwa pliku wykonywalnego, który ma powstac po kompilacji hello nie moga byc rozdzielone.
+Poprawne jest uzycie:
 gcc hello .c -o hello
 ale juz wpisanie:
 gcc -o hello.c hello
@@ -28,7 +33,8 @@ bedzie skutkowac nie tylko bledem ale równiez wykasowaniem zawartosci pliku zr�
 
 Program rozbijemy na 2 czesci:
 /* plik hello.c */
-/* apostrofy "	" oznaczja, ze plik naglowkowy bedzie poszukiwany w pierwszej kolejnosci w katalogu biezacym a nie jedynie w systemowych katalogach z plikami naglówkowymi */
+/* apostrofy "	" oznaczja, ze plik naglowkowy bedzie poszukiwany w pierwszej kolejnosci w katalogu biezacym
+a nie jedynie w systemowych katalogach z plikami naglówkowymi */
 
 #include "libhello.h"
 int main(){
@@ -53,11 +59,14 @@ gcc -c phello .c
 a nastepnie laczac (ld) pliki obiektowe w jeden plik wykonywalny:
 gcc -o hello hello.o phello.o
 
-Standardowo pliki naglówkowe " .h" (header files) zawieraja prototypy funkcji (przewaznie sa to funkcje znajdujace sie w jakiejs bibliotece). Dlatego poprzednie 2 pliki rozbijemy na 3, w tym ostatni to plik naglówkowy libhello . h. Kompilacja naszego programu nie zmieni sie.
+Standardowo pliki naglówkowe " .h" (header files) zawieraja prototypy funkcji (przewaznie sa to funkcje
+znajdujace sie w jakiejs bibliotece). Dlatego poprzednie 2 pliki rozbijemy na 3, w tym ostatni to plik
+naglówkowy libhello.h. Kompilacja naszego programu nie zmieni sie.
 
 /* plik hello.c */
 
-/* apostrofy "	" oznaczja, ze plik naglowkowy bedzie poszukiwany w pierwszej kolejnosci w katalogu biezacym a nie jedynie w systemowych katalogach z plikami naglówkowymi */
+/* apostrofy "	" oznaczja, ze plik naglowkowy bedzie poszukiwany w pierwszej kolejnosci w katalogu
+biezacym a nie jedynie w systemowych katalogach z plikami naglówkowymi */
 
 #include "libhello.h"
 int main(){
@@ -75,11 +84,15 @@ void phello(){
 /* plik naglowkowy libhello.h */
 void phello();
 
-Jezeli nasz program sklada sie z bardzo welu plików zródlowych, bibliotek i dodatkowo wszystko to jest rozmieszczone w jakiejs logicznej struktirze katalogów to trudno jest np. przeslac takie zródla innej osobie z zamiarem kompilacji bez zlozonego opisu zaleznosci i sposobu kompilacji.
+Jezeli nasz program sklada sie z bardzo welu plików zródlowych, bibliotek i dodatkowo wszystko to jest
+rozmieszczone w jakiejs logicznej struktirze katalogów to trudno jest np. przeslac takie zródla innej
+osobie z zamiarem kompilacji bez zlozonego opisu zaleznosci i sposobu kompilacji.
 Rozwiazaniem sa pliki typy Makefile i polecenie make.
 
 Program make i pliki typu Makefile
-Zgodnie z zasadami tworzenie plików Makefile, stanowiacych przepis do dzialania programu make (patrz wyklad: systemy_operacyjne-make.pdf ) polecenia pozwalajace na kompilacje naszego programu typu "Hello World!" mozemy zebrac i zapiac w prostym pliku Makefile:
+Zgodnie z zasadami tworzenie plików Makefile, stanowiacych przepis do dzialania programu make
+polecenia pozwalajace na kompilacje naszego programu typu "Hello World!" mozemy zebrac i zapiac
+w prostym pliku Makefile:
 
 #Pierwszy plik Makefile
 #skladnia:
@@ -96,12 +109,16 @@ Podstawy tworzenie bibliotek
 Biblioteki gromadza rózne przepisy na wykonanie pewnych zadan jak przykladowo: obsluge kompresji
 lub dekompresji róznych formatów plików multimedialnych, szyfrowania, metod obliczeniowych itp.
 
-Zalozmy, ze chcemy w jednej bibliotece zgromadzic 2 przepisy na obliczenie pola pod krzywa, czyli wykonania calkowania numerycznego - metoda prostokatów i metoda trapezów.
-Obrazowo przedstawiaja te metody rysunki zaczerpniete ze strony http://eduinf.waw.pl, gdzie mozna znalezc dokladny opis tych metod.
+Zalozmy, ze chcemy w jednej bibliotece zgromadzic 2 przepisy na obliczenie pola pod krzywa,
+czyli wykonania calkowania numerycznego - metoda prostokatów i metoda trapezów.
+Obrazowo przedstawiaja te metody rysunki zaczerpniete ze strony http://eduinf.waw.pl,
+gdzie mozna znalezc dokladny opis tych metod.
 
-Jezeli stosowne funkcje pozwalajace na wykonanie calkowania zapiszemy w postaci osobnych plików odopwiednio:	metoda_prostokatow.c	metoda_trapezów.c
+Jezeli stosowne funkcje pozwalajace na wykonanie calkowania zapiszemy w postaci osobnych
+plików odopwiednio:	metoda_prostokatow.c	metoda_trapezów.c
 
-to po kompilacji do postaci plików obiektowych: metoda_prostokatow.o i metoda_trapezów.o bedziemy mogli zebrac je do postaci jednej biblioteki np. o nazwie calkowanie.a lub calkowanie.so.
+to po kompilacji do postaci plików obiektowych: metoda_prostokatow.o i metoda_trapezów.o
+bedziemy mogli zebrac je do postaci jednej biblioteki np. o nazwie calkowanie.a lub calkowanie.so.
 
 Biblioteke archiwalna calkowanie.a utworzymy poleceniem:
 
@@ -167,7 +184,8 @@ make -f Makefile2 hello
 Uruchomienie:
 ./hello
 
-Kolejnym etapem moze byc zastapienie w przepisach nazw plików makrosami zwanymi tez zmiennymi automatycznymi(patrz wyklad:systemy_operacyjne-make.pdf):
+Kolejnym etapem moze byc zastapienie w przepisach nazw plików makrosami zwanymi tez zmiennymi
+automatycznymi:
 
 
 #Plik Makefile3
@@ -183,7 +201,9 @@ phello.o : phello.c
 libhello.a: phello.o
      ar rs $@ $<
 
-Celowosc stosowania zmiennych automatycznych widac wyrazniej w momencie gdy zamiast wielu identycznych przepisów zechcemy zastosowac reguly przyrostków np w odniesieniu do tworzenia plików obiektowych na podstawie plików zródlowych o tej samej nazwie:
+Celowosc stosowania zmiennych automatycznych widac wyrazniej w momencie gdy zamiast wielu identycznych
+przepisów zechcemy zastosowac reguly przyrostków np w odniesieniu do tworzenia plików obiektowych
+na podstawie plików zródlowych o tej samej nazwie:
 
 #Plik Makefile4
 #regula przyrosktów okreslajaca jak zbudowac plik obiektowy (.o)
@@ -205,7 +225,8 @@ libhello.a: phello.o
 clean:
      rm -f hello *.o * .a
 
-Poniewaz próba zbudowania reguly przyrostków dla "libhello.a: phello.o" nie powiedzie sie (dlaczego?) zastosujemy bardziej szczególowe reguly wzorca:
+Poniewaz próba zbudowania reguly przyrostków dla "libhello.a: phello.o" nie powiedzie sie (dlaczego?)
+zastosujemy bardziej szczególowe reguly wzorca:
 
 #Plik Makefile5
 #regula wzorca okreslajaca jak zbudowac plik obiektowy (.o) na podstawie pliku zródlowego (.c)
@@ -285,7 +306,8 @@ clean:
 
 Podstawy tworzenia procesow
 
-Ponizej krótko opisano funkcje niezbedne do wykonania cwiczen. Wiecej informacji na temat funkcji systemowych oraz standardowych funkcji C mozna znalezc na stronach pomocy man np.
+Ponizej krótko opisano funkcje niezbedne do wykonania cwiczen. Wiecej informacji na temat funkcji
+systemowych oraz standardowych funkcji C mozna znalezc na stronach pomocy man np.
 
 man 3p fork
 
@@ -293,7 +315,9 @@ Funkcja fork()
 #include <unistd.h>
 pid_t fork(void);
 
-Wywolanie funkcji fork () tworzy duplikat procesu wywolujacego - powoduje rozwidlenie procesu. Nowy proces posiada wlasny identyfikator. Posiada takze wlasna przestrzen danych, srodowisko i deskryptory plików, które (na poczatku) sa kopia swoich odpowiedników z procesu rodzica.
+Wywolanie funkcji fork () tworzy duplikat procesu wywolujacego - powoduje rozwidlenie procesu.
+Nowy proces posiada wlasny identyfikator. Posiada takze wlasna przestrzen danych, srodowisko i deskryptory
+plików, które (na poczatku) sa kopia swoich odpowiedników z procesu rodzica.
 
 W procesie rodzica funkcja zwraca identyfikator (PID) procesu potomnego. W procesie potomka funkcja zwraca O.
 
@@ -302,7 +326,8 @@ Funkcje getpid(), getppid()
 pid_t getpid(void);
 pid_t getppid(void);
 
-Funkcje getpid() i getppid() zwracaja odpowiednio wlasny identyfikator (PID) procesu wywolujacego oraz identyfikator rodzica.
+Funkcje getpid() i getppid() zwracaja odpowiednio wlasny identyfikator (PID) procesu wywolujacego oraz
+identyfikator rodzica.
 
 Funkcja snprintf()
 
@@ -310,7 +335,8 @@ Funkcje z grupy printf formatuja tekst i wypisuja tekst:
 printf - na standardowe wyjscie (tj. do stdout),
 fprintf do strumienia podanego jako argument,
 sprintf i snprintf - zapisuja go w podanej jako argument tablicy znaków.
-Funkcja snprintf rózni sie od sprintf tym, ze zapisuje do tablicy nie wiecej niz size znaków (wliczajac konczacy znak '\O'). Oznacza to, ze mozna je uzywac bez obawy o wystapienie przepelnienia bufora.
+Funkcja snprintf rózni sie od sprintf tym, ze zapisuje do tablicy nie wiecej niz size znaków (wliczajac
+konczacy znak '\O'). Oznacza to, ze mozna je uzywac bez obawy o wystapienie przepelnienia bufora.
 
 #include <stdio.h>
 
@@ -326,7 +352,8 @@ Funkcja system()
 
 int system(const char *command);
 
-Funkcja system () za pomoca interpretera wykonuje polecenie przekazane jako parametr. Wywolanie funkcji blokuje proces wywolujacy.
+Funkcja system () za pomoca interpretera wykonuje polecenie przekazane jako parametr. Wywolanie funkcji
+blokuje proces wywolujacy.
 
 
 Funkcja wait()
@@ -334,33 +361,46 @@ Funkcja wait()
 #include <sys/wait. h>
 pid_ t wait(int *stat_loc);
 
-Funkcja wait()odczytuje informacje o statusie jednego z procesów potomnych uruchomionych przez proces wywolujacy. Zwraca identyfikator procesu potomnego i umieszcza informacje o statusie w zmiennej wskazywanej przez stat_loc. Funkcja blokuje proces wywolujacy do momentu, w którym beda dostepne informacje o statusie zakonczenia procesu potomnego.
+Funkcja wait()odczytuje informacje o statusie jednego z procesów potomnych uruchomionych przez proces
+wywolujacy. Zwraca identyfikator procesu potomnego i umieszcza informacje o statusie w zmiennej wskazywanej
+przez stat_loc. Funkcja blokuje proces wywolujacy do momentu, w którym beda dostepne informacje o statusie
+zakonczenia procesu potomnego.
 
 Funkcja waitpid()
 #include <sys/wait.h>
 pid_t waitpid (pid_t pid, int *stat_loc, int options);
 
-Funkcja wait pid () pelni role podobna do wait (). Posiada jednak wieksze mozliwosci. Param etr pid okresla identyfikator procesu potom nego, którego status nalezy odczytac. Wartosc -1 parametru pid oznacza, ze nalezy odczytac informacje na temat dowolnego potomka. Parametr option s moze przyjmowac m.in. wartosc WNOHANG, która powoduje, ze wywolanie funkcji nie blokuje procesu wywolujacego. W przypadku ustawienia opcji WNOHANG mozliwa jest sytuacja, w której zaden z procesów potomnych sie nie zakonczyl i nie mozna odczytac statusu - wtedy funkcja zwraca O.
+Funkcja wait pid () pelni role podobna do wait (). Posiada jednak wieksze mozliwosci. Param etr pid okresla
+identyfikator procesu potom nego, którego status nalezy odczytac. Wartosc -1 parametru pid oznacza, ze nalezy
+odczytac informacje na temat dowolnego potomka. Parametr option s moze przyjmowac m.in. wartosc WNOHANG, która
+powoduje, ze wywolanie funkcji nie blokuje procesu wywolujacego. W przypadku ustawienia opcji WNOHANG mozliwa
+jest sytuacja, w której zaden z procesów potomnych sie nie zakonczyl i nie mozna odczytac statusu - wtedy funkcja zwraca O.
 
 Makrodefinicja WIFEXITED()
 #include <sys/wait. h>
 WIFEXITED (status)
 
-Sluzy do sprawdzania w jaki sposób zakonczyl sie proces, którego status odczytano za pomoca wait ()lub waitpid (). Przyjmuje wartosc rózna od O gdy proces potomny zakon czyl sie normalnie.
+Sluzy do sprawdzania w jaki sposób zakonczyl sie proces, którego status odczytano za pomoca wait ()lub waitpid().
+Przyjmuje wartosc rózna od O gdy proces potomny zakon czyl sie normalnie.
 
 Makrodefinicja WEXITSTATUS()
 #include <sys/wait.h>
 WEXITSTATUS(status)
 
-Sluzy do sprawdzania kodu zakonczenia procesu, którego status odczyta no za pomoca wait ()lub waitpid (). Jest to wartosc kodu zakonczenia, która proces potomny przekazal wywolujac funkcje exit (), _exit () lub zwrócil w funkcji main().
+Sluzy do sprawdzania kodu zakonczenia procesu, którego status odczyta no za pomoca wait ()lub waitpid ().
+Jest to wartosc kodu zakonczenia, która proces potomny przekazal wywolujac funkcje exit (), _exit ()
+lub zwrócil w funkcji main().
 
 Funkcja execlp()
 #include <unistd.h>
 int execlp(const char *file, const char *arg0, ... /*, (char * )0 */);
 
-Funkcje z rodziny exec() zastepuja biezacy proces nowym zbudowanym przy wykorzystaniu wskazanego pliku wykonywalnego. Funkcja execlp() przyjmuje parametry w postaci listy (litera l w nazwie), a ponadto podczas wczytywania pliku wykonywalnego uwzglednia zmienna srodowiska PATH (litera p w nazwie funkcji).
+Funkcje z rodziny exec() zastepuja biezacy proces nowym zbudowanym przy wykorzystaniu wskazanego pliku wykonywalnego.
+Funkcja execlp() przyjmuje parametry w postaci listy (litera l w nazwie), a ponadto podczas wczytywania pliku
+wykonywalnego uwzglednia zmienna srodowiska PATH (litera p w nazwie funkcji).
 
-Pierwszy argument execlp () to nazwa (i ew. sciezka) do wywolywanego programu. Drugi argument to nazwa programu. Kolejne argumenty sa parametrami wywolywanego programu. Liste parametrów zawsze konczy O (NULL).
+Pierwszy argument execlp () to nazwa (i ew. sciezka) do wywolywanego programu. Drugi argument to nazwa programu.
+Kolejne argumenty sa parametrami wywolywanego programu. Liste parametrów zawsze konczy O (NULL).
 
 Przykladowy program (fork):
 #include <sys/types.h>
@@ -400,7 +440,8 @@ for (; powtorzen > o; powtorzen - - )
 
 ldentyfikatory procesów
 
-Ponizej krótko opisano funkcje niezbedne do wykonania cwiczen. Wiecej informacji na temat funkcji systemowych oraz standardowych funkcji C (w szczególnosci kody bledów) mozna znalezc na stronach pomocy man np.
+Ponizej krótko opisano funkcje niezbedne do wykonania cwiczen. Wiecej informacji na temat funkcji systemowych
+oraz standardowych funkcji C (w szczególnosci kody bledów) mozna znalezc na stronach pomocy man np.
 
 man 3p setpgid
 
@@ -413,9 +454,13 @@ gid_t getgid (void);
 uid_t geteuid (void);
 gid_t getegid (void);
 
-Funkcje zwracaja odpowiednio rzeczywiste identyfikatory uzytkownika i grupy oraz efektywne identyfikatory uzytkownika i grupy.
-Kazdy proces ma trzy identyfikatory uzytkownika: rzeczywisty (real), zapamietany (saved) i efektywny lub obowiazujacy ( effective ). We wszystkich procedurach ochrony jest uzywany efektywny identyfikator uzytkownika ew. grupy.
-Identyfikatory zapamietany i rzeczywisty sa sprawdzane tylko wówczas, gdy proces próbuje zmienic swój identyfikator efektywny. Kazdy proces moze zmienic uid efektywny na taki sam j ak zapamietany lub rzeczywisty. Zmiana identyfikatora efektywnego na dowolny jest mozliwa tylko dla jezeli identyfikator procesu jest równy O (root).
+Funkcje zwracaja odpowiednio rzeczywiste identyfikatory uzytkownika i grupy oraz efektywne identyfikatory
+uzytkownika i grupy. Kazdy proces ma trzy identyfikatory uzytkownika: rzeczywisty (real), zapamietany (saved)
+i efektywny lub obowiazujacy ( effective ). We wszystkich procedurach ochrony jest uzywany efektywny
+identyfikator uzytkownika ew. grupy. Identyfikatory zapamietany i rzeczywisty sa sprawdzane tylko wówczas,
+gdy proces próbuje zmienic swój identyfikator efektywny. Kazdy proces moze zmienic uid efektywny na taki sam
+jak zapamietany lub rzeczywisty. Zmiana identyfikatora efektywnego na dowolny jest mozliwa tylko dla jezeli
+identyfikator procesu jest równy O (root).
 
 
 Funkcje (POSIX) setuid(), setgid(), seteuid(), setegid()
@@ -427,7 +472,9 @@ uid_t seteuid(uid_t euid);
 gid_t setegid(uid_t euid);
 
 Funkcje ustawiaja efektywne identyfikatory uzytkownika oraz grupy dla danego procesu .
-W przypadku zwyklych uzytkowników funkcje setuid ()i seteuid ()dzialaja tak samo. Podobnie setgid () i setegid (). Jesli jednak efektywny identyfikator uzytkownika dla procesu jest równy zeru (root), wówczas funkcje setuid () i setgid () zmieniaja równiez rzeczywisty i zapisany iden tyfikator uzytkownika.
+W przypadku zwyklych uzytkowników funkcje setuid ()i seteuid ()dzialaja tak samo. Podobnie setgid () i setegid().
+Jesli jednak efektywny identyfikator uzytkownika dla procesu jest równy zeru (root), wówczas funkcje setuid ()
+i setgid () zmieniaja równiez rzeczywisty i zapisany iden tyfikator uzytkownika.
 
 
 Funkcja setsid()
@@ -435,7 +482,10 @@ Funkcja setsid()
 #include <unistd.h>
 pid_t setsit(void);
 
-Wywolanie funkcji setsid () powoduje utworzenie nowej sesji, o ile proces nie jest liderem innej grupy procesów. Proces wywolujacy staje sie liderem sesji. Tworzy równiez nowa grupe procesów, której staje sie liderem. W przypadku sukcesu funkcja ta zwraca identyfikator utworzonej sesji, a w przypadku bledu wartosc -1. Kod bledu EPERM oznacza, ze proces jest liderem innej grupy procesów.
+Wywolanie funkcji setsid () powoduje utworzenie nowej sesji, o ile proces nie jest liderem innej grupy procesów.
+Proces wywolujacy staje sie liderem sesji. Tworzy równiez nowa grupe procesów, której staje sie liderem.
+W przypadku sukcesu funkcja ta zwraca identyfikator utworzonej sesji, a w przypadku bledu wartosc -1.
+Kod bledu EPERM oznacza, ze proces jest liderem innej grupy procesów.
 
 
 Funkcja setpgidO
@@ -443,10 +493,14 @@ Funkcja setpgidO
 #include <unistd.h>
 int setpgid (pid_t pid, pid_t pgid);
 
-Wywolanie funkcji setpgid ()powoduje ustawienie identyfikatora grupy procesów dla procesu okreslonego w parametr ze pid, na wartosc pgid .Jezeli w parametrze pid przekazane zostanie 0, uzyty zostanie aktualny proces. Sukces zalezny jest od kilku parametrów:
- proces przekazany w parametrze pid, musi byc procesem wywolujacym lub jego potomkiem, który nie wywolal funkcji exec i nalezy do tej samej sesji co proces wywolujacy (ew. kod bledu EACCESS),
+Wywolanie funkcji setpgid ()powoduje ustawienie identyfikatora grupy procesów dla procesu okreslonego w parametr
+ze pid, na wartosc pgid .Jezeli w parametrze pid przekazane zostanie 0, uzyty zostanie aktualny proces.
+Sukces zalezny jest od kilku parametrów:
+ proces przekazany w parametrze pid, musi byc procesem wywolujacym lub jego potomkiem, który nie wywolal
+funkcji exec i nalezy do tej samej sesji co proces wywolujacy (ew. kod bledu EACCESS),
  proces przekazany w parametrze pid, nie moze byc liderem sesji (ew. kod bledu EPERM),
- jesli istnieje juz proces, okreslony w parametrze pgid , wówczas musi nalezec do tej samej sesji co proces wywolujacy (ew. kod bledu EPERM),
+ jesli istnieje juz proces, okreslony w parametrze pgid , wówczas musi nalezec do tej samej sesji co proces
+wywolujacy (ew. kod bledu EPERM),
  parametr pgid musi posiadac wartosci nieujemn e (ew. kod bledu EINVAL).
 
 
@@ -469,7 +523,8 @@ Funkcja mkdirO
 #include <sys/stat.h>
 int mkdir (canst char *path, mode_t mode);
 
-m kdir tworzy katalog pat h mogacy znajdowac sie w sciezce wzglednej lub bezwzglednej. Katalog uzyskuje uprawnienia okreslone w parametrze made (np. 0750).
+m kdir tworzy katalog pat h mogacy znajdowac sie w sciezce wzglednej lub bezwzglednej. Katalog uzyskuje
+uprawnienia okreslone w parametrze made (np. 0750).
 
 
 Funkcja chmod()
@@ -485,7 +540,8 @@ Funkcja chown()
 #include <sys/types.h>
 #include <unistd.h>
 int chown(const char *path, uid_t owner, gid_t group);
-chown ustawia prawa wlasnosci dla pliku wskazywanego przez sciezke path. Jezeli którys z parametrów owner lub group jest równy -1, wówczas ta wartosc jest pomijana.
+chown ustawia prawa wlasnosci dla pliku wskazywanego przez sciezke path. Jezeli którys z parametrów owner
+lub group jest równy -1, wówczas ta wartosc jest pomijana.
 
 
 Funkcja getenv()
@@ -502,7 +558,8 @@ Funkcja stat()
 #include <unistd.h>
 int stat (const char *path, struct stat *buf);
 
-funkcja stat() zwraca informacje o pliku, dla którego sciezka jest podana w parametrze path. Struktura stat jest zdefiniowanaw pliku naglówkowym <bits/stat.h>, który dolaczany jest do pliku <sys/stat.h>:
+funkcja stat() zwraca informacje o pliku, dla którego sciezka jest podana w parametrze path. Struktura stat
+jest zdefiniowanaw pliku naglówkowym <bits/stat.h>, który dolaczany jest do pliku <sys/stat.h>:
 
 struct stat
 {
@@ -538,7 +595,8 @@ exit (EXIT_SUCCESS);
 
 
 Obsluga sygnalów
-Ponizej krótko opisano funkcje niezbedne do wykonania cwiczen. Wiecej informacji na temat funkcji systemowych oraz standardowych funkcji C mozna znalezc na stronach pomocy man np.
+Ponizej krótko opisano funkcje niezbedne do wykonania cwiczen. Wiecej informacji na temat funkcji systemowych
+oraz standardowych funkcji C mozna znalezc na stronach pomocy man np.
 
 man 3p signal
 
@@ -547,7 +605,9 @@ Funkcja signal()
 #include <signal.h>
 void (*signal(int sig, void(*func)(int)))(int);
 
-Funkcja signal() ustawia funkcje func obslugujaca sygnal sig.Jej parametrami sa wskaznik do funkcji func oraz numer sygnalu sig. Zamiast numerami sygnalów mozna poslugiwac sie stalymi zdefiniowanymi w pliku naglówkowym np. SIGINT czy SIGQUIT. Aby przywrócic domyslny sposób obslugi sygnalu nalezy w miejscu parametru func przekazac SIG_DFL.
+Funkcja signal() ustawia funkcje func obslugujaca sygnal sig.Jej parametrami sa wskaznik do funkcji func oraz
+numer sygnalu sig. Zamiast numerami sygnalów mozna poslugiwac sie stalymi zdefiniowanymi w pliku naglówkowym
+np. SIGINT czy SIGQUIT. Aby przywrócic domyslny sposób obslugi sygnalu nalezy w miejscu parametru func przekazac SIG_DFL.
 
 
 Funkcja alarm()
@@ -563,14 +623,17 @@ int sigemptyset(sigset_t *set);
 int sigad dset(sigset_ t *set,int signo);
 int sigismember(const sigset_t *set, int signo);
 
-Zmienne typu sig set_ t pozwalaja przechowywac zbiory sygnalów. Funkcja sigemptyset() czysci zbiór przekazany jako parametr. Funkcja sigaddset() dodaje do zbioru set sygnal o numerze signo. Funkcja sigismember() sprawdza czy sygnal o numerze signo nalezy do zbioru set przekazanego jako parametr.
+Zmienne typu sig set_ t pozwalaja przechowywac zbiory sygnalów. Funkcja sigemptyset() czysci zbiór przekazany
+jako parametr. Funkcja sigaddset() dodaje do zbioru set sygnal o numerze signo. Funkcja sigismember() sprawdza czy sygnal o numerze signo nalezy do zbioru set przekazanego jako parametr.
 
 
 Funkcja sigprocmask()
 #include <signal.h>
 int sigprocmask(int how, const sigset_ t * restrict set, sigset_t * restrict oset ) ;
 
-Funkcja sigprocmask() modyfikuje maske okreslajaca, które sygnaly maja byc obslugiwane. Parametr how(SIG_BLOCK, SIG_UNBLOCK) okresla czy sygnaly maja zostac zablokowane czy odblokowane. Parametr set okresla zbiór sygnalów, których dotyczy operacja. Do parametru oset zapisywana jest stara maska (sprzed modyfikacji) okreslajaca, które sygnaly sa obslugiwane.
+Funkcja sigprocmask() modyfikuje maske okreslajaca, które sygnaly maja byc obslugiwane. Parametr how(SIG_BLOCK,
+SIG_UNBLOCK) okresla czy sygnaly maja zostac zablokowane czy odblokowane. Parametr set okresla zbiór sygnalów, 
+których dotyczy operacja. Do parametru oset zapisywana jest stara maska (sprzed modyfikacji) okreslajaca, które sygnaly sa obslugiwane.
 Parametr oset moze byc równy NULL.
 
 
@@ -578,7 +641,8 @@ Funkcja sigpending()
 #include <signal.h>
 int sigpending (sigset_t *set);
 
-Funkcja	sigpending() zapisuje w parametrze set zestaw sygnalów, które oczekuja na dostarczenie do procesu (ze wzgledu na blokade).
+Funkcja	sigpending() zapisuje w parametrze set zestaw sygnalów, które oczekuja na dostarczenie do procesu
+(ze wzgledu na blokade).
 
 
 Struktura sigaction
@@ -589,14 +653,19 @@ struct sigaction{
     int sa_flags;
 }
 
-Struktura sigaction zawiera wskaznik sa_handler do funkcji obslugujacej sygnal, flagi sa_flags okreslajace sposób obslugi sygnalu (moga miec wartosc O) oraz maske sa_mask okreslajaca, które sygnaly maja byc blokowane na czas obslugi sygnalu. Maska sa_mask jest typu sigset_t a wiec mozna ja przygotowac za pomoca funkcji sigemptyset() oraz sigaddset().
+Struktura sigaction zawiera wskaznik sa_handler do funkcji obslugujacej sygnal, flagi sa_flags okreslajace
+sposób obslugi sygnalu (moga miec wartosc O) oraz maske sa_mask okreslajaca, które sygnaly maja byc blokowane
+na czas obslugi sygnalu. Maska sa_mask jest typu sigset_t a wiec mozna ja przygotowac za pomoca funkcji
+sigemptyset() oraz sigaddset().
 
 
 Funkcja sigaction()
 #include <signal.h>
 int sigaction (int sig, const struct sigaction *restrict act, struct sigaction *restrict oact);
 
-Funkcja sigaction () jest zalecanym ( w odróznieniu od signal() ) sposobem okreslania obslugi sygnalów. Ustawia ona dla sygnalu sig akcje zdefiniowana w strukturze act. Stara akcja obslugujaca dany sygnal jest zapisywana do parametru oact. Parametr oact moze byc równy NULL.
+Funkcja sigaction () jest zalecanym ( w odróznieniu od signal() ) sposobem okreslania obslugi sygnalów.
+Ustawia ona dla sygnalu sig akcje zdefiniowana w strukturze act. Stara akcja obslugujaca dany sygnal jest
+zapisywana do parametru oact. Parametr oact moze byc równy NULL.
 
 
 Przykladowy program:
